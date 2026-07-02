@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "remotion studio src/index.ts",
+    "build": "tsc --noEmit",
     "render:demo": "remotion render src/index.ts MonicaDemo out/demo.mp4 --props='{\"title\":\"Monica Remotion Renderer\",\"subtitle\":\"Automatic video rendering pipeline\"}'",
+    "render:smoke": "remotion render src/index.ts MonicaDemo out/hello-world.mp4",
     "render": "node scripts/render.mjs",
     "typecheck": "tsc --noEmit"
   },
