@@ -1,0 +1,46 @@
+name: Render Smoke Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - feature/remotion-project-skeleton
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium (Remotion requirement)
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y chromium-browser libnss3 libnspr4 libatk-1.0-0 libatk-bridge2.0-0 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+        continue-on-error: true
+
+      - name: Run type check
+        run: npm run build
+
+      - name: Render smoke test
+        run: npm run render:smoke
+        env:
+          CHROMIUM_PATH: /usr/bin/chromium-browser
+
+      - name: Upload rendered video
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: hello-world-video
+          path: out/hello-world.mp4
