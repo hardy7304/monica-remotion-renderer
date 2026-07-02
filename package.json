@@ -1,0 +1,24 @@
+{
+  "name": "monica-remotion-renderer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "render:demo": "remotion render src/index.ts MonicaDemo out/demo.mp4 --props='{\"title\":\"Monica Remotion Renderer\",\"subtitle\":\"Automatic video rendering pipeline\"}'",
+    "render": "node scripts/render.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.300",
+    "@remotion/renderer": "^4.0.300",
+    "remotion": "^4.0.300",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4"
+  }
+}
